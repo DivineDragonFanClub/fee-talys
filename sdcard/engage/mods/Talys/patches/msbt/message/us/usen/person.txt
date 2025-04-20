@@ -1,0 +1,48 @@
+[PID_S069_Caeda]
+Caeda
+
+[MPID_H_Caeda]
+Talys' Princess who's as talented as
+she is charming. Marth's betrothed.
+
+[MPID_Jagen]
+Jagen
+
+[MPID_Abel]
+Abel
+
+[MPID_Cain]
+Cain
+
+[MPID_Draug]
+Draug
+
+[MPID_Gordin]
+Gordin
+
+[MPID_Wrys]
+Wrys
+
+[MPID_H_Abel]
+Altean cavalier who's well 
+known for his sensibility. 
+
+[MPID_H_Cain]
+Altean cavalier known
+for his recklessness.
+
+[MPID_H_Draug]
+An armored knight of Altea who
+is serving as Marth's shield.
+
+[MPID_H_Gordin]
+Altean archer who is masterful with his
+bow. Looks younger than he actually is. 
+
+[MPID_H_Jagen]
+Veteran knight of Altea who has been
+protecting Marth since he was young.
+
+[MPID_H_Wrys]
+Restores 15 HP.
+

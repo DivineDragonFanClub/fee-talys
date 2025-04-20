@@ -1,0 +1,203 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: fe
+  m_EditorClassIdentifier: 
+  m_GroupName: fe
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 94944f708e5906c468526939828b9e53
+  m_SerializeEntries:
+  - m_GUID: bfdc2b361d2444d45b8aae1f9bd77861
+    m_Address: CustomRP/Shaders/Chara/CharaStandard.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 756e72b8abfe21245a2423a9174e3579
+    m_Address: CustomRP/Shaders/Chara/CharaTrans.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 005e88bbfeae05145bdb67a2a8de7184
+    m_Address: Fld_S069
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9427ccdce59f1fd4b94c45dde2b282cc
+    m_Address: CustomRP/Shaders/Map/MapBackground.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d0c14f363ba25a440b6fbc5d6689ebf0
+    m_Address: CustomRP/Shaders/Map/MapWater.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a3f7c101e7641634e9f64b48d04242fb
+    m_Address: Map/Common/Object/House_FileneA/FBX/House_FileneA
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: a0b00bdfd24fa8d4f821ad62dfed5736
+    m_Address: CustomRP/Shaders/Map/MapStandard.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3862c71952fe39949a19c191491ee149
+    m_Address: Map/Common/Object/House_FileneA/FBX/Textures/Map_Stone_HouseFileneABaseLOD0_01_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 86a09073592c0fd41b4ca1e24c75eca3
+    m_Address: Map/Common/Object/House_FileneA/FBX/Textures/Map_Wood_FileneHouseARoofLOD0_01_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: f6778ed754331b94a928077cdde6e907
+    m_Address: Map/Common/Object/Tree_FirTree/FBX/Tree_FirTreeCx4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 63bfe1bf740976941a373aaabe4cceb6
+    m_Address: CustomRP/Shaders/Map/MapLeaf.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 22bbedafac4fd76449b0486203d75bba
+    m_Address: Map/Common/Object/Tree_FirTree/FBX/Textures/Map_Leaf_FirTreeA_01_Normal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: d4fda2bd1091bbf4a910ac11171ab9fd
+    m_Address: Map/Common/Object/Tree_FirTree/FBX/Textures/Map_Leaf_FirTreeC_01_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 63afb30b839b4f847b284bd2fa58bafc
+    m_Address: Map/Common/Object/Tree_FirTree/FBX/Textures/Map_Wood_FirTreeA_01_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 3078b135c7ff5e34991cbdab06bcc77c
+    m_Address: Map/Common/Object/Tree_FirTree/FBX/Textures/Map_Leaf_FirTreeA_01_Multi
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: c05a51f0c03e4bd4c9ba9a6102460123
+    m_Address: Map/Common/ToonRamp/ToonRamp_M004_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 4288c458b0b722b4e8e3e388fedb5408
+    m_Address: Map/Common/ToonRamp/ToonRamp_M004_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: a35b819c50b86704093c58c08ddc54f9
+    m_Address: CustomRP/Shaders/Map/MapBakedTerrain.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c2d737676f32a3a4bbc9cd2e4bc3629e
+    m_Address: CustomRP/Shaders/Map/MapBlend.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d4092d66e4ded6b46864c54da65cf525
+    m_Address: CustomRP/Shaders/Map/MapCloth.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f0ad9def67a5e1f4ea6058d223a307cc
+    m_Address: CustomRP/Shaders/Common/Shadow.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9f4cfa837ceebf24c9a90295416fff62
+    m_Address: Map/Common/Object/FortB/FBX/FortB
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: f7fc5ce40c7b5a943a17c9d101ae054c
+    m_Address: Map/Common/Object/House_FileneA/FBX/Textures/Map_Wood_FileneHouseARoofLOD0_01_Normal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 3e9cbbd44273025449a3b4919052739b
+    m_Address: Map/Common/Object/House_FileneA/FBX/Textures/Map_Wood_FileneHouseATopLOD0_01_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: ddb9654ad2b332a429e0599dcbced99d
+    m_Address: Map/Common/Object/Tree_FirTree/FBX/Textures/Map_Wood_FirTreeA_01_Multi
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 96aba703d7e25a14e8a7d17317ccd556
+    m_Address: Map/Common/Object/Tree_FirTree/FBX/Textures/Map_Wood_FirTreeA_01_Normal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 6553b9b55f7b935478167def40fca12b
+    m_Address: Map/Common/Terrain/Textures/RepeatTextures/M004/Ter_Barren_Base_01_M004_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 23f2b835744d59d45822936592a7d0b8
+    m_Address: Map/Common/Terrain/Textures/RepeatTextures/M004/Ter_Grass_Base_07_M004_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 2a36fc5956952d1428d0b6de3a0c0af1
+    m_Address: Map/Common/Terrain/Textures/RepeatTextures/M004/Ter_Soil_Base_01_M004_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 2323595690dbebb4aa3b2347b719959c
+    m_Address: Map/Common/Terrain/Textures/RepeatTextures/M004/Ter_Soil_Base_02_M004_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 2fe50f96b4706ba4eb354baa219fc6c0
+    m_Address: Map/Common/Water/Texture/Map_Water_GodZone_02_Normal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 7d54970a214229a49bf4e004f559dd49
+    m_Address: Map/Common/Water/Texture/Map_Water_Noise_01_Color
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: c0db4d4cbb093054495801bdf777ef2b
+    m_Address: Map/Common/Water/Texture/Map_Water_Sample
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: f7c0cfe2e632bd04096aa4e6d9c12573
+    m_Address: Effects/Field/Result/Prefabs/WarpHole_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: 58713cbad713c3540b74ccb6741e054a
+    m_Address: CustomRP/Shaders/Particles/ParticlesStandard.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9e0eea947911fbb4bb98390efa756e45
+    m_Address: Effects/BMap/Destruct/Prefabs/Eff_House01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: d92c99b0726ce5f42ad958366be9efa0
+    m_Address: Effects/Field/S001/Prefabs/Eff_Smoke_Bmap_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  - m_GUID: bee99b2ae201e2048a0bcdf44f87e74d
+    m_Address: Effects/Field/S001/Prefabs/Eff_Smoke_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - removePostBuild
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 48df98a99aa853f4da26a0ba98752fd9, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ebfa9395cdea7804bb642ee316ce606e, type: 2}
+    - {fileID: 11400000, guid: f2e5ebc84969ce34ebc7dd7f24e139d7, type: 2}

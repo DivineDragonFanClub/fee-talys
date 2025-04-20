@@ -1,0 +1,257 @@
+Include("Common")
+g_pid_lueur = "PID_リュール"
+
+g_key_join_jean			= "S_ジャン加入会話_済"
+g_key_villager_all_dead	= "S_村人が全員死んだ"
+g_key_villager_dead		= "S_村人が死んだ"
+g_key_jean_dead			= "S_ジャン_死亡"
+g_key_house_destroy		= "S_手前民家破壊_済"
+
+ -----------------------------------
+
+function Startup()
+	
+	Log("Startup")
+	WinRuleSetDestroyBoss( true )	-- 敵将撃破
+	WinRuleSetMID( "MID_RULE_S001_WIN" )
+	
+	変数登録()
+	イベント登録()
+
+	
+end
+
+function Cleanup()
+	
+	Log("Cleanup");
+	
+end
+
+-- -----------------------------------
+
+function 変数登録()
+	VariableEntry( g_key_join_jean, 0 )
+	VariableEntry( g_key_villager_all_dead, 0 )
+	VariableEntry( g_key_villager_dead, 0 )
+	VariableEntry( g_key_jean_dead, 0 )
+	VariableEntry( g_key_house_destroy, 0 )
+end
+
+function イベント登録()
+	
+	EventEntryTurn( 青軍１ターン開始直前, 1, 1, FORCE_PLAYER )
+	EventEntryTurn(勝利条件, 1, 1, FORCE_PLAYER)
+
+	-- Bottom-Left house
+	EventEntryVisit( 民家訪問１,  4, 4, "民家訪問１_済" )
+	EventEntryDestroy(民家破壊_S001手前, 4, 4, 4, 4, 3, 5, 5, 6)
+
+	-- Top-Right house
+	EventEntryVisit( 民家訪問２, 27, 8, "民家訪問２_済" )
+	EventEntryDestroy(民家破壊_S001手前, 27, 8, 27, 8, 26, 9, 28, 10,g_key_house_destroy)
+
+	EventEntryVisit( InstantWin,  24, 8, "民家訪問3_済" )
+	
+end
+
+function InstantWin()
+	WinRuleSetEnemyNumberLessThanOrEqualTo(100)
+end
+
+-- -----------------------------------
+
+function Opening()
+	
+	Log("Opening")
+	
+	 FadeInAndWait(FADE_NORMAL)
+	-- 	PuppetDemo( "S001", "MID_OP1" )
+	 FadeOutAndWait(FADE_NORMAL)
+	
+end
+
+function MapOpening()
+	
+	Log("MapOpening")
+	
+	MapSetCoords(6, 6)
+
+	-- MapSetSize(5, 5)
+
+	FadeOutAndWait(FADE_FAST)
+	CursorSetPos(5, 9)
+	CursorSetDistanceMode(CURSOR_DISTANCE_NEAR)
+	MapCameraWait()
+	
+	FadeInAndWait(FADE_FAST)
+	
+	CursorSetPos(4, 3)
+	WaitTime(0.2)
+	MapCameraWait()	
+	
+	
+end
+
+-- -----------------------------------
+
+function 青軍１ターン開始直前()
+	CursorSetPos(24, 4)
+	CursorSetDistanceMode(CURSOR_DISTANCE_NEAR)
+	MapCameraWait()
+
+	-- Move the thief towards the house
+	UnitMovePos("PID_S069_Thief", 22, 3, MOVE_FLAG_FOCUS)
+	UnitMoveWait()
+	EventBrokenObject(22, 3)
+	WaitTime(1.5)
+
+
+	
+	CursorSetPos(5, 9)
+	CursorSetDistanceMode(CURSOR_DISTANCE_NEAR)
+	MapCameraWait()
+	Dispos("Caeda", DISPOS_FLAG_FOCUS)
+	Yield()
+	Dispos("Marth", DISPOS_FLAG_FOCUS)
+	Yield()
+	UnitMovePos("PID_S069_Caeda", 26, 7, MOVE_FLAG_NONE)
+	UnitMoveWait()
+
+end
+
+
+
+-- -----------------------------------
+
+function 民家訪問１()
+	Talk( "MID_EV3" )
+	Dispos("Wrys", DISPOS_FLAG_FOCUS)
+	Yield()
+	WaitTime(0.5)
+end
+
+-- -----------------------------------
+
+function 民家破壊_S001手前(x1, z1, x2, z2)
+	TerrainSetBegin()
+	for z = z1, z2 do
+		for x = x1, x2 do
+			TerrainSet( x, z, "TID_廃墟" )
+		end
+	end
+	TerrainSetEnd()
+	
+	WaitTime( 1.0 )
+	
+	VariableSet( g_key_house_destroy, 1 )
+end
+
+-- -----------------------------------
+
+function 民家訪問２()
+	local unit = MindGetUnit()
+	local pid = UnitGetPID( unit )
+	
+	if pid == "PID_ジャン" then
+		Talk( "MID_EV4_2" )
+	else
+		Talk( "MID_EV4" )
+	end
+	
+	ItemGain( MindGetUnit(), "IID_力のしずく" )
+end
+
+-- -----------------------------------
+
+function ジャン加入会話()
+	Talk( "MID_EV5" )
+	
+	-- -----------------------------------
+	
+	-- 緑軍→青軍
+	local pid = "PID_ジャン"
+	if UnitExistOnMap( pid ) then
+		UnitJoin( pid )
+	end
+	
+	WaitTime( 1.0 )
+	
+	-- -----------------------------------
+	
+end
+
+-- -----------------------------------
+
+function ジャン死亡()	
+	if condition_村人死亡() then
+		村人死亡()
+	end
+end
+
+function ジャン父親死亡()
+	Talk( "MID_BT6" )
+	
+	if condition_村人死亡() then
+		村人死亡()
+	end
+end
+
+function condition_村人死亡()
+	if VariableGet( g_key_villager_dead ) == 1 then
+		return false
+	end
+	
+	return true
+end
+
+function 村人死亡()
+	VariableSet( g_key_villager_dead, 1 )
+end
+
+-- -----------------------------------
+
+function MapEnding()
+	
+	Log("MapEnding")
+	
+	-- 村人の数をカウント
+	local count = 0
+	local index = ForceUnitGetFirst(FORCE_ALLY)
+	while index != nil do
+		count = count + 1
+		index = ForceUnitGetNext(index)
+	end
+	
+	-- 全員死んでいた場合
+	if count == 0 then
+		VariableSet( g_key_villager_all_dead, 1 )
+	end
+	
+	
+	if VariableGet( g_key_villager_dead ) == 0 then
+		Talk( "MID_ED1" )
+		ItemGain(nil, "IID_サージ")
+		ItemGain(nil, "IID_聖水")
+		
+	elseif VariableGet( g_key_villager_all_dead ) == 0 then
+		Talk( "MID_ED2" )
+		ItemGain(nil, "IID_サージ")
+		
+	else
+		Talk( "MID_ED3" )
+		
+	end
+	
+end
+
+function Ending()
+	
+	Log("Ending");
+	
+end
+
+function GameOver()
+	
+	Log("GameOver");
+	
+end
