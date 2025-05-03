@@ -1,0 +1,173 @@
+[MID_S069_EV1_#001]
+$Type(1)
+$Window(0, "S069_Wrys", "t")
+$Window(2, "S069_Wrys")
+I am Wrys, a humble curate. I cannot fight,
+but this staff I carry can heal your wounded.$Wait(0)
+
+[MID_S069_EV1_#002]
+$Window(2, "S069_Wrys")
+Take me with you, and you'll be
+very glad you did.$Wait(0)
+
+[MID_S069_EV2_#001]
+$Type(1)
+$Window(0, "S001_村人_訪問", "t")
+$Window(2, "S001_村人_訪問")
+The Altean Army!
+'Tis good you stopped by.$Wait(0)
+
+[MID_S069_EV2_#002]
+$Window(2, "S001_村人_訪問")
+The villagers have collected
+10000 gold pieces. If it please you,$Wait(0)
+
+[MID_S069_EV2_#003]
+$Window(2, "S001_村人_訪問")
+use the money to arm your warriors,
+and rid our land of those pirates.$Wait(0)
+
+[MID_EV4_1_#001]
+$Type(1)
+$Window(0, "Anje", "t")
+$Anim(1, "Anje", "Sad")
+$Window(2, "Anje")
+Thank you for checking in on me. Do you think
+you could use this?$Wait(0)
+
+[MID_EV4_1_#002]
+$Window(2, "Anje")
+There's not much I can do with it, at any rate.
+Better it should go to a soldier like yourself.$Wait(0)
+
+[MID_EV4_2_#001]
+$Type(1)
+$Window(0, "Anje", "t")
+$Anim(1, "Anje", "Surprise")
+$Window(2, "Anje")
+Jean, get inside this instant! It's too dangerous
+to─ What? You're helping out the village?$Wait(0)
+
+[MID_EV4_2_#002]
+$Anim(1, "Anje", "Shy")
+$Window(2, "Anje")
+Well, if I can't change your mind, then you
+should have this. And Jean...come home safe.$Wait(0)
+
+[MID_S069_OP1_#001]
+$Type(1)
+$Window(0, "S069_Jagen", "t")
+$Window(2, "S069_Jagen")
+Sire! You've a visitor from the castle.
+It's Princess Caeda!$Wait(0)
+
+[MID_S069_OP1_#002]
+$Window(1, "S069_Jagen")
+$Window(0, "S069_Caeda", "t")
+$Window(0, "召喚_マルス", "b")
+$Window(2, "召喚_マルス")
+Caeda, what is it?
+You look white as a sheet!$Wait(0)
+
+[MID_S069_OP1_#003]
+$Window(2, "S069_Caeda")
+Marth, come quickly!
+It's the castle...$Wait(0)
+
+[MID_S069_OP1_#004]
+$Window(2, "S069_Caeda")
+Galder's pirates attacked
+from out of nowhere.$Wait(0)
+
+[MID_S069_OP1_#005]
+$Window(2, "S069_Caeda")
+They stormed the gates and cut down
+everyone in their path!$Wait(0)
+
+[MID_S069_OP1_#006]
+$Window(2, "S069_Caeda")
+I fear for my father's life...$Wait(0)
+
+[MID_S069_OP1_#007]
+$Window(0, "召喚_マルス", "b")
+$Window(2, "召喚_マルス")
+Steady, Caeda. 
+You did well to come find us.$Wait(0)
+
+[MID_S069_OP1_#008]
+$Window(2, "召喚_マルス")
+Altea's bravest knights aren't about to
+hand Talys to that flock of seafowl.$Wait(0)
+
+[MID_S069_OP1_#009]
+$Window(2, "召喚_マルス")
+Come, we'll make for the castle now!$Wait(0)
+
+[MID_S069_BT1_#001]
+$Type(1)
+$Window(0, "Gazzak", "t")
+$Window(2, "Gazzak")
+The might of Altea,
+ye say, now?$Wait(0)
+
+[MID_S069_BT1_#002]
+$Window(2, "Gazzak")
+Har! Ye sprogs look t'be a mite short
+o'mighty t'me.$Wait(0)
+
+[MID_S069_BT2_#001]
+$Type(1)
+$Window(0, "Gazzak", "t")
+$Window(2, "Gazzak")
+Rrgh... Ye'll pay, dog...$Wait(0)
+
+[MID_S069_ED1_#001]
+$Type(1)
+$Window(0, "ハイアシンス", "t")
+$Window(0, "召喚_マルス", "b")
+$Window(2, "ハイアシンス")
+Ah, Prince Marth! You have saved us in our
+hour of need. Please accept my thanks.$Wait(0)
+
+[MID_S069_ED1_#002]
+$Window(2, "ハイアシンス")
+Lad, I believe you are ready. If you wish
+to seek out allies in Aurelis,$Wait(0)
+
+[MID_S069_ED1_#003]
+$Window(2, "ハイアシンス")
+I will give you what soldiers I can to see you
+arrive there safely.$Wait(0)
+
+[MID_S069_ED1_#004]
+$Window(2, "ハイアシンス")
+Captain Ogma is a fine swordsman,
+brave and true.$Wait(0)
+
+[MID_S069_ED1_#005]
+$Window(2, "ハイアシンス")
+I know he and his fighters
+will serve you well.$Wait(0)
+
+[MID_S069_ED1_#006]
+$Window(2, "ハイアシンス")
+Another thing...
+During your travels, you are
+certain to meet many who despise Dolhr.
+
+[MID_S069_ED1_#007]
+$Window(2, "ハイアシンス")
+Some may be hiding in villages;
+other may have been captured or forced to
+fight against their will or better judgment.$Wait(0)
+
+[MID_S069_ED1_#008]
+$Window(2, "ハイアシンス")
+It falls upon you to find these individuals
+and win them over your cause.$Wait(0)
+
+[MID_S069_ED1_#009]
+$Window(2, "ハイアシンス")
+Understood, lad? Then go!
+The time has come! Be patient, steady,
+strong: I know you will do great things.$Wait(0)
