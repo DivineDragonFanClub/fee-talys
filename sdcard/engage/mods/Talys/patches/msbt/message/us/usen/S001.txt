@@ -125,48 +125,57 @@ Rrgh... Ye'll pay, dog...$Wait(0)
 $Type(1)
 $Window(0, "ハイアシンス", "t")
 $Window(0, "召喚_マルス", "b")
+$Alias("ハイアシンス", "MPID_Mostyn")
 $Window(2, "ハイアシンス")
 Ah, Prince Marth! You have saved us in our
 hour of need. Please accept my thanks.$Wait(0)
 
 [MID_S069_ED1_#002]
+$Alias("ハイアシンス", "MPID_Mostyn")
 $Window(2, "ハイアシンス")
 Lad, I believe you are ready. If you wish
 to seek out allies in Aurelis,$Wait(0)
 
 [MID_S069_ED1_#003]
+$Alias("ハイアシンス", "MPID_Mostyn")
 $Window(2, "ハイアシンス")
 I will give you what soldiers I can to see you
 arrive there safely.$Wait(0)
 
 [MID_S069_ED1_#004]
+$Alias("ハイアシンス", "MPID_Mostyn")
 $Window(2, "ハイアシンス")
 Captain Ogma is a fine swordsman,
 brave and true.$Wait(0)
 
 [MID_S069_ED1_#005]
+$Alias("ハイアシンス", "MPID_Mostyn")
 $Window(2, "ハイアシンス")
 I know he and his fighters
 will serve you well.$Wait(0)
 
 [MID_S069_ED1_#006]
+$Alias("ハイアシンス", "MPID_Mostyn")
 $Window(2, "ハイアシンス")
 Another thing...
 During your travels, you are
-certain to meet many who despise Dolhr.
+certain to meet many who despise Dolhr.$Wait(0)
 
 [MID_S069_ED1_#007]
+$Alias("ハイアシンス", "MPID_Mostyn")
 $Window(2, "ハイアシンス")
 Some may be hiding in villages;
 other may have been captured or forced to
 fight against their will or better judgment.$Wait(0)
 
 [MID_S069_ED1_#008]
+$Alias("ハイアシンス", "MPID_Mostyn")
 $Window(2, "ハイアシンス")
 It falls upon you to find these individuals
 and win them over your cause.$Wait(0)
 
 [MID_S069_ED1_#009]
+$Alias("ハイアシンス", "MPID_Mostyn")
 $Window(2, "ハイアシンス")
 Understood, lad? Then go!
 The time has come! Be patient, steady,

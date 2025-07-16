@@ -26,6 +26,9 @@ Wrys
 [MPID_Gazzak]
 Gazzak
 
+[MPID_Mostyn]
+Mostyn
+
 [MPID_H_Abel]
 Altean cavalier who's well 
 known for his sensibility. 
@@ -47,7 +50,7 @@ Veteran knight of Altea who has been
 protecting Marth since he was young.
 
 [MPID_H_Gazzak]
-Leader of the Pirates of Gazzak.
+Member of the Galder Pirates.
 
 [MPID_H_Wrys]
 Restores 15 HP.
