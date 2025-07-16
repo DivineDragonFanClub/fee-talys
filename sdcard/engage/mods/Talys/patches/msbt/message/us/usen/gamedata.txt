@@ -1,0 +1,11 @@
+[MCID_S069_PREFIX]
+Outrealm
+
+[MCID_S069]
+Marth Embarks
+
+[MCID_S069_PLACE]
+Illusory Talys
+
+[MCID_S069_OUTLINE]
+Battle heroes from the past!

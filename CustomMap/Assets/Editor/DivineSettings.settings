@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   engageModsPath: engage/mods
   sdPath: C:\Users\Ray\AppData\Roaming\Ryujinx\sdcard
-  modPath: C:/Users/Ray/AppData/Roaming/Ryujinx/sdcard/engage/mods/00 - Custom map
+  modPath: C:/Users/Ray/AppData/Roaming/Ryujinx/sdcard/engage/mods/Talys
   openAfterBuildCheckbox: 1

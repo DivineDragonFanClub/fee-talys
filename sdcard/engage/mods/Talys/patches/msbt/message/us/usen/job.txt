@@ -1,0 +1,6 @@
+[MJID_Pirate]
+Pirate
+
+[MJID_H_Pirate]
+Freebooters who carry axes, like fighters.
+Tough as nails while on the water.
