@@ -105,19 +105,6 @@ namespace CustomMap.Editor
             return false;
         }
         
-        [MenuItem(MENU_ROOT + "Process All Prefabs in Folder", true)]
-        public static bool ProcessAllPrefabsInFolderValidation()
-        {
-            // Check if a folder is selected
-            foreach (var obj in Selection.objects)
-            {
-                string path = AssetDatabase.GetAssetPath(obj);
-                if (!string.IsNullOrEmpty(path) && AssetDatabase.IsValidFolder(path))
-                    return true;
-            }
-            return false;
-        }
-        
         [MenuItem(MENU_ROOT + "Process All Prefabs in Folder", false)]
         public static void ProcessAllPrefabsInFolder()
         {
@@ -133,7 +120,6 @@ namespace CustomMap.Editor
                 }
             }
 
-            // Shouldn't happen since we have the validation
             string folderPath = EditorUtility.OpenFolderPanel("Select Folder with Prefabs", defaultPath, "");
             
             if (string.IsNullOrEmpty(folderPath))
