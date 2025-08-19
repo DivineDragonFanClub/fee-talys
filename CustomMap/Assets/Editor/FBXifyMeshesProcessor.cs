@@ -131,8 +131,7 @@ namespace CustomMap.Editor
                     if (asset is Mesh mesh)
                     {
                         fbxMesh = mesh;
-                        Log($"Found mesh '{mesh.name}' in {gameObjectName}.fbx");
-                        break;
+                            break;
                     }
                 }
                 
@@ -140,7 +139,6 @@ namespace CustomMap.Editor
                 {
                     meshFilter.sharedMesh = fbxMesh;
                     updatedCount++;
-                    Log($"Updated mesh reference: {gameObjectName} -> {fbxMesh.name}");
                 }
                 else
                 {
@@ -148,7 +146,6 @@ namespace CustomMap.Editor
                 }
             }
             
-            Log($"Updated {updatedCount}/{meshFilters.Length} mesh references");
             return updatedCount > 0;
         }
         
@@ -252,30 +249,19 @@ namespace CustomMap.Editor
                 Object[] subAssets = AssetDatabase.LoadAllAssetsAtPath(fbxAssetPath);
                 Mesh fbxMesh = null;
                 
-                Log($"Checking FBX at: {fbxAssetPath}");
-                Log($"Found {subAssets.Length} sub-assets in FBX");
-                
                 foreach (var asset in subAssets)
                 {
                     if (asset is Mesh mesh)
                     {
                         fbxMesh = mesh;
-                        Log($"Found mesh '{mesh.name}' (type: {mesh.GetType().Name}) in {gameObjectName}.fbx");
                         break;
-                    }
-                    else
-                    {
-                        Log($"  Sub-asset: {asset.name} (type: {asset.GetType().Name})");
                     }
                 }
                 
                 if (fbxMesh != null)
                 {
                     // Use Undo for scene objects so changes can be undone
-                    Undo.RecordObject(meshFilter, "FBXify Mesh Reference");
-                    
-                    // Store old mesh for logging
-                    string oldMeshName = meshFilter.sharedMesh != null ? meshFilter.sharedMesh.name : "null";
+                    Undo.RecordObject(meshFilter, $"{FBXifyMeshes.TOOL_NAME} Mesh Reference");
                     
                     // Update the mesh reference
                     meshFilter.sharedMesh = fbxMesh;
@@ -285,7 +271,6 @@ namespace CustomMap.Editor
                     EditorUtility.SetDirty(meshFilter.gameObject);
                     
                     updatedCount++;
-                    Log($"Updated mesh reference: {gameObjectName} from '{oldMeshName}' -> '{fbxMesh.name}'");
                 }
                 else
                 {
@@ -293,7 +278,6 @@ namespace CustomMap.Editor
                 }
             }
             
-            Log($"Updated {updatedCount}/{meshFilters.Length} mesh references");
             return updatedCount > 0;
         }
     }

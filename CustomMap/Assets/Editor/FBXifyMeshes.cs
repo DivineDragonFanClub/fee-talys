@@ -8,23 +8,25 @@ namespace CustomMap.Editor
 {
     public static class FBXifyMeshes
     {
-        private const string MENU_ROOT = "Tools/FBXify Meshes/";
-        private const string FBX_OUTPUT_ROOT = "FBXify";
-        private const string LOG_PREFIX = "[FBXify]";
+        public const string TOOL_NAME = "FBXify";
+        public const string TOOL_DISPLAY_NAME = TOOL_NAME + " Meshes";
+        private const string MENU_ROOT = "Gatekeeper/" + TOOL_DISPLAY_NAME + "/";
+        private const string FBX_OUTPUT_ROOT = TOOL_NAME;
+        private const string LOG_PREFIX = "[" + TOOL_NAME + "]";
         
         // Simple logging helpers
         internal static void Log(string message) => Debug.Log($"{LOG_PREFIX} {message}");
         internal static void LogWarning(string message) => Debug.LogWarning($"{LOG_PREFIX} {message}");
         internal static void LogError(string message) => Debug.LogError($"{LOG_PREFIX} {message}");
         
-        [MenuItem(MENU_ROOT + "Process Selected Prefabs")]
+        [MenuItem(MENU_ROOT + "Process Selected Prefabs", false)]
         public static void ProcessSelectedPrefabs()
         {
             var selectedPrefabs = GetSelectedPrefabs();
             
             if (selectedPrefabs.Count == 0)
             {
-                EditorUtility.DisplayDialog("FBXify Meshes", 
+                EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME, 
                     "No prefabs selected. Please select one or more prefabs in the Project window.", 
                     "OK");
                 return;
@@ -40,14 +42,20 @@ namespace CustomMap.Editor
             ProcessPrefabs(selectedPrefabs);
         }
         
-        [MenuItem(MENU_ROOT + "Process Selected GameObjects")]
+        [MenuItem(MENU_ROOT + "Process Selected Prefabs", true)]
+        public static bool ProcessSelectedPrefabsValidation()
+        {
+            return GetSelectedPrefabs().Count > 0;
+        }
+        
+        [MenuItem(MENU_ROOT + "Process Selected GameObject(s)", false)]
         public static void ProcessSelectedGameObjects()
         {
             var selectedGameObjects = Selection.gameObjects;
             
             if (selectedGameObjects.Length == 0)
             {
-                EditorUtility.DisplayDialog("FBXify Meshes", 
+                EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME, 
                     "No GameObjects selected. Please select one or more GameObjects in the Hierarchy window.", 
                     "OK");
                 return;
@@ -62,7 +70,7 @@ namespace CustomMap.Editor
             
             if (totalMeshFilters == 0)
             {
-                EditorUtility.DisplayDialog("FBXify Meshes", 
+                EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME, 
                     "No MeshFilters found in the selected GameObjects or their children.", 
                     "OK");
                 return;
@@ -78,10 +86,52 @@ namespace CustomMap.Editor
             ProcessGameObjects(selectedGameObjects);
         }
         
-        [MenuItem(MENU_ROOT + "Process All Prefabs in Folder")]
+        [MenuItem(MENU_ROOT + "Process Selected GameObject(s)", true)]
+        public static bool ProcessSelectedGameObjectsValidation()
+        {
+            // Only enable if we have scene GameObjects selected (not project assets)
+            if (Selection.gameObjects.Length == 0)
+                return false;
+            
+            // Check that at least one selected object is a scene object (not a prefab asset)
+            foreach (var go in Selection.gameObjects)
+            {
+                if (go.scene.IsValid())
+                    return true;
+            }
+            
+            return false;
+        }
+        
+        [MenuItem(MENU_ROOT + "Process All Prefabs in Folder", true)]
+        public static bool ProcessAllPrefabsInFolderValidation()
+        {
+            // Check if a folder is selected
+            foreach (var obj in Selection.objects)
+            {
+                string path = AssetDatabase.GetAssetPath(obj);
+                if (!string.IsNullOrEmpty(path) && AssetDatabase.IsValidFolder(path))
+                    return true;
+            }
+            return false;
+        }
+        
+        [MenuItem(MENU_ROOT + "Process All Prefabs in Folder", false)]
         public static void ProcessAllPrefabsInFolder()
         {
-            string folderPath = EditorUtility.OpenFolderPanel("Select Folder with Prefabs", "Assets", "");
+            // Get the selected folder path as default for the dialog
+            string defaultPath = "Assets";
+            foreach (var obj in Selection.objects)
+            {
+                string path = AssetDatabase.GetAssetPath(obj);
+                if (!string.IsNullOrEmpty(path) && AssetDatabase.IsValidFolder(path))
+                {
+                    defaultPath = path;
+                    break;
+                }
+            }
+            
+            string folderPath = EditorUtility.OpenFolderPanel("Select Folder with Prefabs", defaultPath, "");
             
             if (string.IsNullOrEmpty(folderPath))
                 return;
@@ -97,7 +147,7 @@ namespace CustomMap.Editor
             
             if (prefabPaths.Count == 0)
             {
-                EditorUtility.DisplayDialog("FBXify Meshes", 
+                EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME, 
                     "No prefabs found in the selected folder.", 
                     "OK");
                 return;
@@ -111,30 +161,6 @@ namespace CustomMap.Editor
             }
             
             ProcessPrefabs(prefabPaths);
-        }
-        
-        [MenuItem("Assets/FBXify This Prefab", false, 1000)]
-        public static void FBXifyContextMenu()
-        {
-            ProcessSelectedPrefabs();
-        }
-        
-        [MenuItem("Assets/FBXify This Prefab", true)]
-        public static bool FBXifyContextMenuValidation()
-        {
-            return GetSelectedPrefabs().Count > 0;
-        }
-        
-        [MenuItem("GameObject/FBXify Selected", false, 0)]
-        public static void FBXifyGameObjectContextMenu()
-        {
-            ProcessSelectedGameObjects();
-        }
-        
-        [MenuItem("GameObject/FBXify Selected", true)]
-        public static bool FBXifyGameObjectContextMenuValidation()
-        {
-            return Selection.gameObjects.Length > 0;
         }
         
         private static List<string> GetSelectedPrefabs()
@@ -213,7 +239,7 @@ namespace CustomMap.Editor
                 }
             }
             
-            EditorUtility.DisplayDialog("FBXify Meshes Complete", message, "OK");
+            EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME + " Complete", message, "OK");
         }
         
         private static void ProcessGameObjects(GameObject[] gameObjects)
@@ -284,7 +310,7 @@ namespace CustomMap.Editor
                 }
             }
             
-            EditorUtility.DisplayDialog("FBXify Meshes Complete", message, "OK");
+            EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME + " Complete", message, "OK");
         }
         
         public static string GetIndividualFBXOutputPath(string prefabName, string gameObjectName)
