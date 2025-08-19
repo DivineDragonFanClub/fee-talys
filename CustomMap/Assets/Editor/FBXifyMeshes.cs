@@ -19,7 +19,7 @@ namespace CustomMap.Editor
         internal static void LogWarning(string message) => Debug.LogWarning($"{LOG_PREFIX} {message}");
         internal static void LogError(string message) => Debug.LogError($"{LOG_PREFIX} {message}");
         
-        [MenuItem(MENU_ROOT + "Process Selected Prefabs", false)]
+        [MenuItem(MENU_ROOT + "Process Selected Prefab(s)", false)]
         public static void ProcessSelectedPrefabs()
         {
             var selectedPrefabs = GetSelectedPrefabs();
@@ -33,7 +33,7 @@ namespace CustomMap.Editor
                 return;
             }
             
-            if (!EditorUtility.DisplayDialog("FBXify Meshes", 
+            if (!EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME, 
                 $"Process {selectedPrefabs.Count} selected prefab(s)?", 
                 "Process", "Cancel"))
             {
@@ -43,7 +43,7 @@ namespace CustomMap.Editor
             ProcessPrefabs(selectedPrefabs);
         }
         
-        [MenuItem(MENU_ROOT + "Process Selected Prefabs", true)]
+        [MenuItem(MENU_ROOT + "Process Selected Prefab(s)", true)]
         public static bool ProcessSelectedPrefabsValidation()
         {
             return GetSelectedPrefabs().Count > 0;
@@ -78,7 +78,7 @@ namespace CustomMap.Editor
                 return;
             }
             
-            if (!EditorUtility.DisplayDialog("FBXify Meshes", 
+            if (!EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME, 
                 $"Process {selectedGameObjects.Length} GameObject(s) containing {totalMeshFilters} MeshFilter(s)?", 
                 "Process", "Cancel"))
             {
@@ -142,7 +142,7 @@ namespace CustomMap.Editor
                 return;
             }
             
-            if (!EditorUtility.DisplayDialog("FBXify Meshes", 
+            if (!EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME, 
                 $"Process {prefabPaths.Count} prefab(s) in folder?", 
                 "Process", "Cancel"))
             {
@@ -182,7 +182,7 @@ namespace CustomMap.Editor
                     string prefabName = Path.GetFileNameWithoutExtension(prefabPath);
                     
                     float progress = (float)i / prefabPaths.Count;
-                    if (EditorUtility.DisplayCancelableProgressBar("FBXify Meshes", 
+                    if (EditorUtility.DisplayCancelableProgressBar(TOOL_DISPLAY_NAME, 
                         $"Processing {prefabName} ({i + 1}/{prefabPaths.Count})", 
                         progress))
                     {
@@ -245,7 +245,7 @@ namespace CustomMap.Editor
                     string rootName = go.name;
                     
                     float progress = (float)i / gameObjects.Length;
-                    if (EditorUtility.DisplayCancelableProgressBar("FBXify Meshes", 
+                    if (EditorUtility.DisplayCancelableProgressBar(TOOL_DISPLAY_NAME, 
                         $"Processing {rootName} ({i + 1}/{gameObjects.Length})", 
                         progress))
                     {
