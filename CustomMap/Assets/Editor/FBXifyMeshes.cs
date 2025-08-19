@@ -40,6 +40,44 @@ namespace CustomMap.Editor
             ProcessPrefabs(selectedPrefabs);
         }
         
+        [MenuItem(MENU_ROOT + "Process Selected GameObjects")]
+        public static void ProcessSelectedGameObjects()
+        {
+            var selectedGameObjects = Selection.gameObjects;
+            
+            if (selectedGameObjects.Length == 0)
+            {
+                EditorUtility.DisplayDialog("FBXify Meshes", 
+                    "No GameObjects selected. Please select one or more GameObjects in the Hierarchy window.", 
+                    "OK");
+                return;
+            }
+            
+            // Count total MeshFilters to process
+            int totalMeshFilters = 0;
+            foreach (var go in selectedGameObjects)
+            {
+                totalMeshFilters += go.GetComponentsInChildren<MeshFilter>(true).Length;
+            }
+            
+            if (totalMeshFilters == 0)
+            {
+                EditorUtility.DisplayDialog("FBXify Meshes", 
+                    "No MeshFilters found in the selected GameObjects or their children.", 
+                    "OK");
+                return;
+            }
+            
+            if (!EditorUtility.DisplayDialog("FBXify Meshes", 
+                $"Process {selectedGameObjects.Length} GameObject(s) containing {totalMeshFilters} MeshFilter(s)?", 
+                "Process", "Cancel"))
+            {
+                return;
+            }
+            
+            ProcessGameObjects(selectedGameObjects);
+        }
+        
         [MenuItem(MENU_ROOT + "Process All Prefabs in Folder")]
         public static void ProcessAllPrefabsInFolder()
         {
@@ -85,6 +123,18 @@ namespace CustomMap.Editor
         public static bool FBXifyContextMenuValidation()
         {
             return GetSelectedPrefabs().Count > 0;
+        }
+        
+        [MenuItem("GameObject/FBXify Selected", false, 0)]
+        public static void FBXifyGameObjectContextMenu()
+        {
+            ProcessSelectedGameObjects();
+        }
+        
+        [MenuItem("GameObject/FBXify Selected", true)]
+        public static bool FBXifyGameObjectContextMenuValidation()
+        {
+            return Selection.gameObjects.Length > 0;
         }
         
         private static List<string> GetSelectedPrefabs()
@@ -165,6 +215,78 @@ namespace CustomMap.Editor
             
             EditorUtility.DisplayDialog("FBXify Meshes Complete", message, "OK");
         }
+        
+        private static void ProcessGameObjects(GameObject[] gameObjects)
+        {
+            int processedCount = 0;
+            int failedCount = 0;
+            var failedObjects = new List<string>();
+            
+            try
+            {
+                for (int i = 0; i < gameObjects.Length; i++)
+                {
+                    GameObject go = gameObjects[i];
+                    string rootName = go.name;
+                    
+                    float progress = (float)i / gameObjects.Length;
+                    if (EditorUtility.DisplayCancelableProgressBar("FBXify Meshes", 
+                        $"Processing {rootName} ({i + 1}/{gameObjects.Length})", 
+                        progress))
+                    {
+                        break;
+                    }
+                    
+                    try
+                    {
+                        if (FBXifyMeshesProcessor.ProcessGameObject(go))
+                        {
+                            processedCount++;
+                            Log($"Successfully processed: {rootName}");
+                        }
+                        else
+                        {
+                            failedCount++;
+                            failedObjects.Add(rootName);
+                            LogWarning($"Failed to process: {rootName}");
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        failedCount++;
+                        failedObjects.Add(rootName);
+                        LogError($"Error processing {rootName}: {e.Message}");
+                    }
+                }
+            }
+            finally
+            {
+                AssetDatabase.Refresh();
+                EditorUtility.ClearProgressBar();
+                
+                // Mark the scene as dirty so it can be saved
+                if (processedCount > 0)
+                {
+                    UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(
+                        UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene()
+                    );
+                }
+            }
+            
+            // Show results
+            string message = $"Processed {processedCount} GameObject(s) successfully.";
+            if (failedCount > 0)
+            {
+                message += $"\n{failedCount} GameObject(s) failed:";
+                foreach (var failed in failedObjects)
+                {
+                    message += $"\n  • {failed}";
+                }
+            }
+            
+            EditorUtility.DisplayDialog("FBXify Meshes Complete", message, "OK");
+        }
+        
         public static string GetIndividualFBXOutputPath(string prefabName, string gameObjectName)
         {
             // Keep FBX files inside Assets folder so Unity can import them

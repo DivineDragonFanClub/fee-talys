@@ -151,5 +151,150 @@ namespace CustomMap.Editor
             Log($"Updated {updatedCount}/{meshFilters.Length} mesh references");
             return updatedCount > 0;
         }
+        
+        public static bool ProcessGameObject(GameObject gameObject)
+        {
+            if (gameObject == null)
+            {
+                LogError("GameObject is null");
+                return false;
+            }
+            
+            string rootName = gameObject.name;
+            
+            // Find all MeshFilters in the GameObject and its children
+            MeshFilter[] meshFilters = gameObject.GetComponentsInChildren<MeshFilter>(true);
+            if (meshFilters.Length == 0)
+            {
+                LogWarning($"No MeshFilters found in GameObject: {rootName}");
+                return false;
+            }
+            
+            Log($"Found {meshFilters.Length} MeshFilters in {rootName}");
+            
+            // Use "SceneObjects" as the folder for non-prefab objects
+            string folderName = $"SceneObjects_{rootName}";
+            
+            // Export each GameObject with a MeshFilter as a separate FBX
+            int exportedCount = 0;
+            foreach (var meshFilter in meshFilters)
+            {
+                if (meshFilter.sharedMesh == null)
+                {
+                    LogWarning($"Skipping {meshFilter.gameObject.name} - no mesh assigned");
+                    continue;
+                }
+                
+                string gameObjectName = meshFilter.gameObject.name;
+                string fbxPath = GetIndividualFBXOutputPath(folderName, gameObjectName);
+                
+                // Export this specific GameObject
+                string exportedPath = ModelExporter.ExportObject(fbxPath, meshFilter.gameObject);
+                if (string.IsNullOrEmpty(exportedPath))
+                {
+                    LogError($"Failed to export GameObject: {gameObjectName}");
+                    continue;
+                }
+                
+                Log($"Exported {gameObjectName} to: {exportedPath}");
+                exportedCount++;
+            }
+            
+            if (exportedCount == 0)
+            {
+                LogError($"No GameObjects were exported from {rootName}");
+                return false;
+            }
+            
+            // Force Unity to import all the FBX files
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+            
+            // Update mesh references to point to the FBX files
+            if (!UpdateSceneGameObjectMeshReferences(meshFilters, folderName))
+            {
+                LogError($"Failed to update mesh references: {rootName}");
+                return false;
+            }
+            
+            Log($"Successfully processed {exportedCount} meshes in {rootName}");
+            return true;
+        }
+        
+        private static bool UpdateSceneGameObjectMeshReferences(MeshFilter[] meshFilters, string folderName)
+        {
+            int updatedCount = 0;
+            
+            foreach (var meshFilter in meshFilters)
+            {
+                if (meshFilter.sharedMesh == null)
+                    continue;
+                    
+                string gameObjectName = meshFilter.gameObject.name;
+                string fbxAssetPath = GetIndividualFBXAssetPath(folderName, gameObjectName);
+                
+                // Check if the FBX file exists
+                if (!File.Exists(Path.Combine(Application.dataPath, "..", fbxAssetPath)))
+                {
+                    LogWarning($"FBX not found for {gameObjectName}, skipping");
+                    continue;
+                }
+                
+                // Load the FBX
+                GameObject fbxObject = AssetDatabase.LoadAssetAtPath<GameObject>(fbxAssetPath);
+                if (fbxObject == null)
+                {
+                    LogWarning($"Failed to load FBX for {gameObjectName}");
+                    continue;
+                }
+                
+                // Get the mesh from the FBX
+                Object[] subAssets = AssetDatabase.LoadAllAssetsAtPath(fbxAssetPath);
+                Mesh fbxMesh = null;
+                
+                Log($"Checking FBX at: {fbxAssetPath}");
+                Log($"Found {subAssets.Length} sub-assets in FBX");
+                
+                foreach (var asset in subAssets)
+                {
+                    if (asset is Mesh mesh)
+                    {
+                        fbxMesh = mesh;
+                        Log($"Found mesh '{mesh.name}' (type: {mesh.GetType().Name}) in {gameObjectName}.fbx");
+                        break;
+                    }
+                    else
+                    {
+                        Log($"  Sub-asset: {asset.name} (type: {asset.GetType().Name})");
+                    }
+                }
+                
+                if (fbxMesh != null)
+                {
+                    // Use Undo for scene objects so changes can be undone
+                    Undo.RecordObject(meshFilter, "FBXify Mesh Reference");
+                    
+                    // Store old mesh for logging
+                    string oldMeshName = meshFilter.sharedMesh != null ? meshFilter.sharedMesh.name : "null";
+                    
+                    // Update the mesh reference
+                    meshFilter.sharedMesh = fbxMesh;
+                    
+                    // Force the change to be registered
+                    EditorUtility.SetDirty(meshFilter);
+                    EditorUtility.SetDirty(meshFilter.gameObject);
+                    
+                    updatedCount++;
+                    Log($"Updated mesh reference: {gameObjectName} from '{oldMeshName}' -> '{fbxMesh.name}'");
+                }
+                else
+                {
+                    LogWarning($"No mesh found in FBX for {gameObjectName}");
+                }
+            }
+            
+            Log($"Updated {updatedCount}/{meshFilters.Length} mesh references");
+            return updatedCount > 0;
+        }
     }
 }
