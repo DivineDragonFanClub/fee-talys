@@ -26,6 +26,7 @@ namespace CustomMap.Editor
             
             if (selectedPrefabs.Count == 0)
             {
+                // Shouldn't happen since we have the validation
                 EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME, 
                     "No prefabs selected. Please select one or more prefabs in the Project window.", 
                     "OK");
@@ -52,11 +53,12 @@ namespace CustomMap.Editor
         public static void ProcessSelectedGameObjects()
         {
             var selectedGameObjects = Selection.gameObjects;
-            
+
+            // Shouldn't happen since we have the validation
             if (selectedGameObjects.Length == 0)
             {
-                EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME, 
-                    "No GameObjects selected. Please select one or more GameObjects in the Hierarchy window.", 
+                EditorUtility.DisplayDialog(TOOL_DISPLAY_NAME,
+                    "No GameObjects selected. Please select one or more GameObjects in the Hierarchy window.",
                     "OK");
                 return;
             }
@@ -130,7 +132,8 @@ namespace CustomMap.Editor
                     break;
                 }
             }
-            
+
+            // Shouldn't happen since we have the validation
             string folderPath = EditorUtility.OpenFolderPanel("Select Folder with Prefabs", defaultPath, "");
             
             if (string.IsNullOrEmpty(folderPath))
