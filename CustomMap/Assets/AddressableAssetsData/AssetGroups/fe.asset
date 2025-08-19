@@ -56,11 +56,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - removePostBuild
-  - m_GUID: f6778ed754331b94a928077cdde6e907
-    m_Address: Map/Common/Object/Tree_FirTree/FBX/Tree_FirTreeCx4
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - removePostBuild
   - m_GUID: 63bfe1bf740976941a373aaabe4cceb6
     m_Address: CustomRP/Shaders/Map/MapLeaf.shader
     m_ReadOnly: 0

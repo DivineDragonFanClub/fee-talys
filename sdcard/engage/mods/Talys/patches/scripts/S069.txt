@@ -44,7 +44,7 @@ function イベント登録()
 	EventEntryDestroy(民家破壊_S001手前, 27, 8, 27, 8, 26, 9, 28, 10,g_key_house_destroy)
 
 	-- Debug
-	EventEntryVisit( InstantWin,  24, 8, "民家訪問3_済" ) 
+	-- EventEntryVisit( InstantWin,  24, 8, "民家訪問3_済" ) 
 	
 	EventEntryBattleTalk(Talk, "", FORCE_PLAYER, "PID_S069_BOSS", FORCE_ENEMY, true, "戦闘前会話_ボス_済", "MID_S069_BT1")
 	EventEntryDie(Talk, "PID_S069_BOSS", FORCE_ENEMY, condition_true, "MID_S069_BT2")
