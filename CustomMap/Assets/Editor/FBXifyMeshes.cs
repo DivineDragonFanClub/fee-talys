@@ -9,7 +9,13 @@ namespace CustomMap.Editor
     public static class FBXifyMeshes
     {
         private const string MENU_ROOT = "Tools/FBXify Meshes/";
-        private const string FBX_OUTPUT_ROOT = "FBX";
+        private const string FBX_OUTPUT_ROOT = "FBXify";
+        private const string LOG_PREFIX = "[FBXify]";
+        
+        // Simple logging helpers
+        internal static void Log(string message) => Debug.Log($"{LOG_PREFIX} {message}");
+        internal static void LogWarning(string message) => Debug.LogWarning($"{LOG_PREFIX} {message}");
+        internal static void LogError(string message) => Debug.LogError($"{LOG_PREFIX} {message}");
         
         [MenuItem(MENU_ROOT + "Process Selected Prefabs")]
         public static void ProcessSelectedPrefabs()
@@ -105,9 +111,6 @@ namespace CustomMap.Editor
             
             try
             {
-                // Don't batch asset editing for FBX import to work properly
-                // AssetDatabase.StartAssetEditing();
-                
                 for (int i = 0; i < prefabPaths.Count; i++)
                 {
                     string prefabPath = prefabPaths[i];
@@ -126,26 +129,25 @@ namespace CustomMap.Editor
                         if (FBXifyMeshesProcessor.ProcessPrefab(prefabPath))
                         {
                             processedCount++;
-                            Debug.Log($"[FBXify] Successfully processed: {prefabName}");
+                            Log($"Successfully processed: {prefabName}");
                         }
                         else
                         {
                             failedCount++;
                             failedPrefabs.Add(prefabName);
-                            Debug.LogWarning($"[FBXify] Failed to process: {prefabName}");
+                            LogWarning($"Failed to process: {prefabName}");
                         }
                     }
                     catch (System.Exception e)
                     {
                         failedCount++;
                         failedPrefabs.Add(prefabName);
-                        Debug.LogError($"[FBXify] Error processing {prefabName}: {e.Message}");
+                        LogError($"Error processing {prefabName}: {e.Message}");
                     }
                 }
             }
             finally
             {
-                // AssetDatabase.StopAssetEditing();
                 AssetDatabase.Refresh();
                 EditorUtility.ClearProgressBar();
             }
@@ -163,8 +165,7 @@ namespace CustomMap.Editor
             
             EditorUtility.DisplayDialog("FBXify Meshes Complete", message, "OK");
         }
-        
-        public static string GetFBXOutputPath(string prefabName)
+        public static string GetIndividualFBXOutputPath(string prefabName, string gameObjectName)
         {
             // Keep FBX files inside Assets folder so Unity can import them
             string fbxFolder = Path.Combine(Application.dataPath, FBX_OUTPUT_ROOT, prefabName);
@@ -174,13 +175,13 @@ namespace CustomMap.Editor
                 Directory.CreateDirectory(fbxFolder);
             }
             
-            return Path.Combine(fbxFolder, $"{prefabName}.fbx");
+            return Path.Combine(fbxFolder, $"{gameObjectName}.fbx");
         }
         
-        public static string GetFBXAssetPath(string prefabName)
+        public static string GetIndividualFBXAssetPath(string prefabName, string gameObjectName)
         {
             // Asset path relative to project root
-            return Path.Combine("Assets", FBX_OUTPUT_ROOT, prefabName, $"{prefabName}.fbx");
+            return Path.Combine("Assets", FBX_OUTPUT_ROOT, prefabName, $"{gameObjectName}.fbx");
         }
     }
 }
