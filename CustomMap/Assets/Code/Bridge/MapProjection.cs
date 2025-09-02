@@ -21,7 +21,6 @@ namespace Bridge
         public float m_Scale; // 0x38
         [Range(0, 100)] // RVA: 0x18AF20 Offset: 0x18B021 VA: 0x18AF20
         public float m_Alpha; // 0x3C
-        [Range(0, 100)] // RVA: 0x18AF40 Offset: 0x18B041 VA: 0x18AF40
         public Color32 m_SightSideColor; // 0x40
         public Color32 m_SightDarkColor; // 0x44
         public Color32 m_SightMaskColor; // 0x48

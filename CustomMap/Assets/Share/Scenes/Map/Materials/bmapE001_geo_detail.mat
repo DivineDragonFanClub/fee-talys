@@ -9,12 +9,12 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: bmapE001_geo_detail
   m_Shader: {fileID: 4800000, guid: c2d737676f32a3a4bbc9cd2e4bc3629e, type: 3}
-  m_ShaderKeywords: WATER_REFLECTIVE WATER_SPECULAR _S_KEY_5_ALBEDO_LAYERS _S_KEY_MAP_SKIP_SPECULAR
-    _S_KEY_RIMLIGHT_ON _S_KEY_RIM_LIGHT _S_KEY_TOON_SHADOW
+  m_ShaderKeywords: _S_KEY_5_ALBEDO_LAYERS _S_KEY_DETAIL _S_KEY_MAP_SKIP_SPECULAR
+    _S_KEY_RIM_LIGHT _S_KEY_TOON_SHADOW
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
